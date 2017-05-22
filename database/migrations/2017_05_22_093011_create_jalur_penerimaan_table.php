@@ -16,14 +16,14 @@ class CreateJalurPenerimaanTable extends Migration
         Schema::create('jalur_penerimaan', function (Blueprint $table) {
             $table->uuid('id');
             $table->char('tahun', 4);
-            $table->strng('nama_jalur');
-            $table->char('tahun', 4);
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
+            $table->string('nama_jalur');
+            $table->timestamp('start_time')->useCurrent();
+            $table->timestamp('end_time')->useCurrent();
             $table->timestamps();
 
             $table->primary('id');
             $table->unique(['tahun', 'nama_jalur']);
+            $table->foreign('tahun')->references('tahun')->on('tahun_penerimaan');
         });
     }
 
