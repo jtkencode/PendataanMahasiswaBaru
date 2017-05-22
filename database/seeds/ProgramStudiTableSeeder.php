@@ -1,5 +1,6 @@
 <?php
 
+use App\ProgramStudi;
 use Illuminate\Database\Seeder;
 
 class ProgramStudiTableSeeder extends Seeder
@@ -11,7 +12,17 @@ class ProgramStudiTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('program_studi')->insert([ 'kode_program_studi' => 'D3-TI', 'program_studi' => 'Diploma III Teknik Informatika' ]);
-        DB::table('program_studi')->insert([ 'kode_program_studi' => 'D4-TI', 'program_studi' => 'Sarjana Terapan Teknik Informatika' ]);
+        $listProgramStudi = [
+            "D3-TI" => "Diploma III Teknik Informatika",
+            "D4-TI" => "Sarjana Terapan Teknik Informatika"
+        ];
+
+        foreach ($listProgramStudi as $kode => $prodi)
+        {
+            $object = new ProgramStudi;
+            $object->kode_program_studi = $kode;
+            $object->program_studi = $prodi;
+            $object->save();
+        }
     }
 }

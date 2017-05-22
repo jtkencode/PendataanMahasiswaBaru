@@ -1,5 +1,6 @@
 <?php
 
+use App\Agama;
 use Illuminate\Database\Seeder;
 
 class AgamaTableSeeder extends Seeder
@@ -11,11 +12,20 @@ class AgamaTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('agama')->insert([ 'agama' => 'Islam' ]);
-        DB::table('agama')->insert([ 'agama' => 'Kristen Protestan' ]);
-        DB::table('agama')->insert([ 'agama' => 'Kristen Katolik' ]);
-        DB::table('agama')->insert([ 'agama' => 'Hindu' ]);
-        DB::table('agama')->insert([ 'agama' => 'Buddha' ]);
-        DB::table('agama')->insert([ 'agama' => 'Khonghucu' ]);
+        $listAgama = [
+            "Islam",
+            "Kristen Protestan",
+            "Kristen Katolik",
+            "Hindu",
+            "Buddha",
+            "Khonghucu"
+        ];
+
+        foreach ($listAgama as $agama)
+        {
+            $object = new Agama;
+            $object->agama = $agama;
+            $object->save();
+        }
     }
 }
