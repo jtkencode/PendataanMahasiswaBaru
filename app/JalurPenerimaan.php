@@ -10,4 +10,5 @@ class JalurPenerimaan extends Model
 
     /* We use UUID */
     public $incrementing = false;
+    use Uuids;
 }
