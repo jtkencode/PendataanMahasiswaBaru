@@ -16,6 +16,8 @@ class CreateTahunPenerimaanTable extends Migration
         Schema::create('tahun_penerimaan', function (Blueprint $table) {
             $table->char('tahun', 4);
             $table->timestamps();
+
+            $table->primary('tahun');
         });
     }
 
