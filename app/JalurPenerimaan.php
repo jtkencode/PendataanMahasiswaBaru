@@ -11,4 +11,9 @@ class JalurPenerimaan extends Model
     /* We use UUID */
     public $incrementing = false;
     use Uuids;
+
+    public function tahun()
+    {
+    	return $this->belongsTo('App\TahunPenerimaan', 'tahun', 'tahun');
+    }
 }
