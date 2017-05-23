@@ -211,7 +211,7 @@ $attrInput = array_merge($attrInputNotRequired, array('required' => ''));
 					<div class="col-md-8">
 						<div class="input-group">
 							<div class="input-group-addon">twitter.com/</div>
-							<input type="text" required class="form-control" autocomplete="off"
+							<input type="text" class="form-control" autocomplete="off"
 								name="twitter" id="inputTwitter" placeholder="Username Twitter" />
 						</div>
 					</div>
@@ -222,7 +222,7 @@ $attrInput = array_merge($attrInputNotRequired, array('required' => ''));
 					<div class="col-md-8">
 						<div class="input-group">
 							<div class="input-group-addon">instagram.com/</div>
-							<input type="text" required class="form-control" autocomplete="off"
+							<input type="text" class="form-control" autocomplete="off"
 								name="instagram" id="inputInstagram" placeholder="Username Instagram" />
 						</div>
 					</div>
@@ -231,7 +231,7 @@ $attrInput = array_merge($attrInputNotRequired, array('required' => ''));
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="inputLINE">LINE</label>
 					<div class="col-md-8">
-						<input type="text" required class="form-control" autocomplete="off"
+						<input type="text" class="form-control" autocomplete="off"
 							name="line" id="inputLINE" placeholder="ID LINE" />
 					</div>
 				</div>
