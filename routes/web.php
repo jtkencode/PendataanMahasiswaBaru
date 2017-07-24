@@ -23,7 +23,23 @@ Route::get('/', function () {
 	$data['tahun'] = date('Y');
 	$data['kv_jenis_kelamin'] = ['L' => 'Laki-laki', 'P' => 'Perempuan'];
 	$data['kv_program_studi'] = ProgramStudi::all();
-	$data['kv_jalur_masuk'] = JalurPenerimaan::all();
+	$data['kv_jalur_masuk'] = JalurPenerimaan::where([
+														['start_time', '<=', Carbon::now()],
+														['end_time', '>=', Carbon::now()]
+													])->get();
+
+	if (count($data['kv_jalur_masuk']) == 0)
+	{
+		$next_jalur = JalurPenerimaan::where('start_time', '>', Carbon::now())
+		                             ->oldest('start_time')->first();
+
+		if ($next_jalur != null)
+		{
+			$data['next_jalur_masuk'] = $next_jalur;
+			$data['next_jalur_masuk_diff_human'] = Carbon::parse($next_jalur->start_time)->diffForHumans();
+		}
+	}
+
 	$data['kv_agama'] = Agama::all();
 
     return view('front/pendataan', $data);
@@ -55,7 +71,7 @@ Route::post('/', function (Request $request) {
 	$daftar_kontak = ['nomor_hp', 'email', 'facebook', 'twitter', 'instagram', 'line'];
 
 	foreach ($daftar_kontak as $k)
-	{	
+	{
 		if ($request->input($k) != NULL)
 		{
 			$kontak = new KontakMahasiswa;
@@ -63,7 +79,7 @@ Route::post('/', function (Request $request) {
 			$kontak->mahasiswa_daftar_ulang = $mahasiswa->id;
 			$kontak->jenis_kontak = $k;
 			$kontak->detil_kontak = $request->input($k);
-			
+
 			$kontak->save();
 		}
 	}

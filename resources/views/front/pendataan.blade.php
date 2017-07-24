@@ -107,14 +107,26 @@ $attrInput = array_merge($attrInputNotRequired, array('required' => ''));
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="inputJalurMasuk">Jalur masuk</label>
 					<div class="col-md-8">
-						@foreach ($kv_jalur_masuk as $jalur)
-						<div class="radio">
-							<label>
-								<input type="radio" name="jalur_penerimaan"
-								value="{{ $jalur->id }}" required> {{ $jalur->nama_jalur }}
-							</label>
-						</div>
-						@endforeach
+						@if (count($kv_jalur_masuk) > 0)
+							@foreach ($kv_jalur_masuk as $jalur)
+							<div class="radio">
+								<label>
+									<input type="radio" name="jalur_penerimaan"
+									value="{{ $jalur->id }}" required> {{ $jalur->nama_jalur }}
+								</label>
+							</div>
+							@endforeach
+						@else
+							<div class="alert alert-danger">
+							Tidak ada jalur penerimaan yang sedang daftar ulang saat ini.
+							@if ($next_jalur_masuk != null)
+								<br>
+								Jalur penerimaan terdekat selanjutnya yang akan daftar ulang
+								adalah <b>{{ $next_jalur_masuk->nama_jalur }}</b> yang akan dimulai
+								pada <b><abbr title="{{ $next_jalur_masuk->start_time }}">{{ $next_jalur_masuk_diff_human }}</abbr></b>.
+							@endif
+							</div>
+						@endif
 					</div>
 				</div>
 
