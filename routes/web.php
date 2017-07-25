@@ -92,3 +92,60 @@ Route::post('/', function (Request $request) {
 Route::get('success', function () {
     return view('front/success');
 });
+
+Route::get('admin', function () {
+	return redirect('admin/mdu');
+});
+
+Route::get('admin/mdu', function (Request $request) {
+	$jalur = [];
+	$judul = '';
+
+	if ($request->has('jalur'))
+	{
+		$jalur = JalurPenerimaan::find($request->input('jalur'));
+
+		if ($jalur != null)
+		{
+			$judul = $jalur->nama_jalur . " Tahun " . $jalur->tahun;
+			$jalur = [$jalur->id];
+		}
+	}
+	else if ($request->has('tahun'))
+	{
+		$jalur = JalurPenerimaan::where('tahun', $request->input('tahun'))
+		                         ->get()
+		                         ->map(function ($jalur) {
+		                         	return $jalur->id;
+		                         });
+		$judul = "Tahun " . $request->input('tahun');
+	}
+	else
+	{
+		$jalur = JalurPenerimaan::all()->groupBy('tahun');
+
+		return view('admin/mdu/list_jalur', ['jalur' => $jalur]);
+	}
+
+	$mhs = MahasiswaDaftarUlang::with(['jalurPenerimaan', 'programStudi'])
+	                           ->whereIn('jalur_penerimaan', $jalur)
+	                           ->orderBy('created_at')
+	                           ->get();
+
+	return view('admin/mdu/list_mahasiswa', [
+		'mahasiswa' => $mhs,
+		'judul' => $judul
+	]);
+});
+
+Route::get('admin/mdu/{id}', function ($id) {
+	$mhs = MahasiswaDaftarUlang::with(['jalurPenerimaan', 'programStudi', 'agamaDetail'])
+	                           ->find($id);
+	$mhs['kontak_mahasiswa'] = KontakMahasiswa::where('mahasiswa_daftar_ulang', $id)
+	                                          ->get()
+	                                          ->mapWithKeys(function ($kontak) {
+	                                          	return [$kontak->jenis_kontak => $kontak->detil_kontak];
+	                                          });
+
+	return view('admin/mdu/get_mahasiswa', ['mahasiswa' => $mhs]);
+});
