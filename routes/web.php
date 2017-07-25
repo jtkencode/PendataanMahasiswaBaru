@@ -46,43 +46,45 @@ Route::get('/', function () {
 });
 
 Route::post('/', function (Request $request) {
-	$mahasiswa = new MahasiswaDaftarUlang;
+	DB::transaction(function () use ($request) {
+		$mahasiswa = new MahasiswaDaftarUlang;
 
-	$mahasiswa->nama_lengkap = $request->input('nama_lengkap');
-	$mahasiswa->nama_panggilan = $request->input('nama_panggilan');
-	$mahasiswa->jenis_kelamin = $request->input('jenis_kelamin');
-	$mahasiswa->program_studi = $request->input('program_studi');
-	$mahasiswa->jalur_penerimaan = $request->input('jalur_penerimaan');
-	$mahasiswa->tempat_lahir = $request->input('tempat_lahir');
-	$mahasiswa->tanggal_lahir = $request->input('tanggal_lahir');
-	$mahasiswa->agama = $request->input('agama');
-	$mahasiswa->alamat_asal = $request->input('alamat_asal');
-	$mahasiswa->alamat_sekarang = $request->input('alamat_sekarang');
-	$mahasiswa->asal_sekolah = $request->input('asal_sekolah');
-	$mahasiswa->jurusan_asal = $request->input('jurusan_asal');
-	$mahasiswa->cita_cita = $request->input('cita_cita');
-	$mahasiswa->hobi = $request->input('hobi');
-	$mahasiswa->motivasi_masuk = $request->input('motivasi_masuk');
-	$mahasiswa->moto_hidup = $request->input('moto_hidup');
-	$mahasiswa->deskripsi_diri = $request->input('deskripsi_diri');
+		$mahasiswa->nama_lengkap = $request->input('nama_lengkap');
+		$mahasiswa->nama_panggilan = $request->input('nama_panggilan');
+		$mahasiswa->jenis_kelamin = $request->input('jenis_kelamin');
+		$mahasiswa->program_studi = $request->input('program_studi');
+		$mahasiswa->jalur_penerimaan = $request->input('jalur_penerimaan');
+		$mahasiswa->tempat_lahir = $request->input('tempat_lahir');
+		$mahasiswa->tanggal_lahir = $request->input('tanggal_lahir');
+		$mahasiswa->agama = $request->input('agama');
+		$mahasiswa->alamat_asal = $request->input('alamat_asal');
+		$mahasiswa->alamat_sekarang = $request->input('alamat_sekarang');
+		$mahasiswa->asal_sekolah = $request->input('asal_sekolah');
+		$mahasiswa->jurusan_asal = $request->input('jurusan_asal');
+		$mahasiswa->cita_cita = $request->input('cita_cita');
+		$mahasiswa->hobi = $request->input('hobi');
+		$mahasiswa->motivasi_masuk = $request->input('motivasi_masuk');
+		$mahasiswa->moto_hidup = $request->input('moto_hidup');
+		$mahasiswa->deskripsi_diri = $request->input('deskripsi_diri');
 
-	$mahasiswa->save();
+		$mahasiswa->save();
 
-	$daftar_kontak = ['nomor_hp', 'email', 'facebook', 'twitter', 'instagram', 'line'];
+		$daftar_kontak = ['nomor_hp', 'email', 'facebook', 'twitter', 'instagram', 'line'];
 
-	foreach ($daftar_kontak as $k)
-	{
-		if ($request->input($k) != NULL)
+		foreach ($daftar_kontak as $k)
 		{
-			$kontak = new KontakMahasiswa;
+			if ($request->input($k) != NULL)
+			{
+				$kontak = new KontakMahasiswa;
 
-			$kontak->mahasiswa_daftar_ulang = $mahasiswa->id;
-			$kontak->jenis_kontak = $k;
-			$kontak->detil_kontak = $request->input($k);
+				$kontak->mahasiswa_daftar_ulang = $mahasiswa->id;
+				$kontak->jenis_kontak = $k;
+				$kontak->detil_kontak = $request->input($k);
 
-			$kontak->save();
+				$kontak->save();
+			}
 		}
-	}
+	});
 
 	return redirect('success');
 });
