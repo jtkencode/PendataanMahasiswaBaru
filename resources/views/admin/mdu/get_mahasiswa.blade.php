@@ -135,6 +135,16 @@
 			<td>{{ $mahasiswa->moto_hidup }}</td>
 		</tr>
 		<tr>
+			<th>Minat dan bakat</th>
+			<td>
+				@if (isset($mahasiswa->minat_bakat))
+				{{ $mahasiswa->minat_bakat }}
+				@else
+				<span class="label label-warning"><i>Field</i> baru ada sejak 2018.</span>
+				@endif
+			</td>
+		</tr>
+		<tr>
 			<th>Deskripsi diri</th>
 			<td>{{ nl2br($mahasiswa->deskripsi_diri) }}</td>
 		</tr>

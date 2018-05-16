@@ -66,6 +66,7 @@ Route::post('/', function (Request $request) {
 		$mahasiswa->motivasi_masuk = $request->input('motivasi_masuk');
 		$mahasiswa->moto_hidup = $request->input('moto_hidup');
 		$mahasiswa->deskripsi_diri = $request->input('deskripsi_diri');
+		$mahasiswa->minat_bakat = $request->input('minat_bakat');
 
 		$mahasiswa->save();
 
