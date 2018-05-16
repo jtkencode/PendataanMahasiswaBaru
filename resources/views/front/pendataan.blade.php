@@ -317,6 +317,19 @@ $attrInput = array_merge($attrInputNotRequired, array('required' => ''));
 <script src="{{ asset('assets/js/jquery-1.12.4.min.js') }}"></script>
 <script src="{{ asset('assets/js/modernizr.js') }}"></script>
 <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+<script>
+$("form").submit(function () {
+	if ($(this).valid()) {
+		$(this).submit(function () {
+			return false;
+		});
+		return true;
+	}
+	else {
+		return false;
+	}
+});
+</script>
 
 </body>
 </html>
