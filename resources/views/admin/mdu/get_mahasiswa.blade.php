@@ -135,6 +135,10 @@
 			<td>{{ $mahasiswa->moto_hidup }}</td>
 		</tr>
 		<tr>
+			<th>Minat dan bakat</th>
+			<td>{{ $mahasiswa->minat_bakat }}</td>
+		</tr>
+		<tr>
 			<th>Deskripsi diri</th>
 			<td>{{ nl2br($mahasiswa->deskripsi_diri) }}</td>
 		</tr>
