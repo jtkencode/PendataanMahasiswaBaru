@@ -14,7 +14,7 @@ class AddMinatBakatField extends Migration
     public function up()
     {
         Schema::table('mahasiswa_daftar_ulang', function (Blueprint $table) {
-            $table->string('minat_bakat')->nullable();
+            $table->text('minat_bakat')->after('deskripsi_diri')->nullable();
         });
     }
 
