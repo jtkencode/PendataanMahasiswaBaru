@@ -285,6 +285,15 @@ $attrInput = array_merge($attrInputNotRequired, array('required' => ''));
 				</div>
 
 				<div class="form-group">
+					<label class="col-md-4 control-label" for="inputMinatBakat">Minat dan bakat</label>
+					<div class="col-md-8">
+						<input type="text" required class="form-control" autocomplete="off"
+							name="minat_bakat" id="inputMinatBakat" placeholder="Minat dan bakat"
+							onblur="periksaEjaan(this);" />
+					</div>
+				</div>
+
+				<div class="form-group">
 					<label class="col-md-4 control-label" for="inputDeskripsiDiri">Deskripsi diri</label>
 					<div class="col-md-8">
 						<textarea required class="form-control"
