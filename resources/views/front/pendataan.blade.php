@@ -119,7 +119,7 @@ $attrInput = array_merge($attrInputNotRequired, array('required' => ''));
 						@else
 							<div class="alert alert-danger">
 							Tidak ada jalur penerimaan yang sedang daftar ulang saat ini.
-							@if ($next_jalur_masuk != null)
+							@if (isset($next_jalur_masuk) && $next_jalur_masuk != null)
 								<br>
 								Jalur penerimaan terdekat selanjutnya yang akan daftar ulang
 								adalah <b>{{ $next_jalur_masuk->nama_jalur }}</b> yang akan dimulai
